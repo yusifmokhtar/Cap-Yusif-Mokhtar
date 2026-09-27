@@ -726,12 +726,17 @@ The project focuses on helping young players build football fundamentals while d
 The training philosophy is based on giving young players individual attention and helping them enjoy football while developing their basic technical and physical abilities.
 </p>
 
+
 <div class="tags">
 <span>Kids Football</span>
 <span>New Damietta</span>
 <span>Technical Skills</span>
-<span>Coord
-/div>
+<span>Physical Development</span>
+<span>Teamwork</span>
+<span>Discipline</span>
+</div>
+
+</div>
 
 </div>
 
@@ -739,29 +744,243 @@ The training philosophy is based on giving young players individual attention an
 
 </section>
 
-
-<!-- KIDS ARENA -->
-
-<section class="kids">
-
+<!-- EDUCATION -->
+<section class="education" id="education">
 <div class="container">
+<div class="section-label">06 — Education</div>
+<h2 class="section-title">Education & Professional Development</h2>
+<p class="section-description">Academic background and practical skills supporting my work in football coaching and physical education.</p>
+<div class="education-grid">
+<div class="edu">
+<h3>Faculty of Physical Education</h3>
+<div class="school">Damietta University</div>
+<p>Graduate of the Faculty of Physical Education, Sports Management specialization.</p>
+<div class="certificates">
+<span class="certificate">Sports Management</span>
+<span class="certificate">Physical Education</span>
+<span class="certificate">Football Coaching</span>
+</div>
+</div>
+<div class="edu">
+<h3>Digital & Media Skills</h3>
+<div class="school">Practical Skills</div>
+<p>Video editing, Photoshop, sports content creation and digital presentation of football training activities.</p>
+<div class="certificates">
+<span class="certificate">Video Editing</span>
+<span class="certificate">Photoshop</span>
+<span class="certificate">Sports Content</span>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-<div class="section-label">
-05 — Football Development Project
+<!-- MEDIA -->
+<section class="media-section" id="media">
+<div class="container">
+<div class="section-label">07 — Media Portfolio</div>
+<h2 class="section-title">Football Training & Activities</h2>
+<p class="section-description">Photos and videos from football coaching, youth development and sports activities.</p>
+<div class="media-tabs">
+<button class="media-tab active" data-filter="all">All</button>
+<button class="media-tab" data-filter="photo">Photos</button>
+<button class="media-tab" data-filter="video">Videos</button>
+</div>
+<div id="mediaGrid" class="media-grid">
+<div class="media-note" style="grid-column:1/-1">Loading media...</div>
+</div>
+<div id="mediaEmpty" class="media-note" style="display:none">Photos and videos are managed from the GitHub media folder.</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+<div class="container">
+<div class="section-label">08 — Contact</div>
+<h2 class="section-title">Let's Work Together</h2>
+<p class="section-description">Available for football coaching, kids football development and physical education opportunities.</p>
+<div class="contact-grid">
+<div class="contact-card">
+<div class="contact-icon">📍</div>
+<h3>Location</h3>
+<p>New Damietta, Damietta, Egypt</p>
+</div>
+<div class="contact-card">
+<div class="contact-icon">📧</div>
+<h3>Email</h3>
+<p>Open to professional football & PE opportunities</p>
+</div>
+<div class="contact-card">
+<div class="contact-icon">⚽</div>
+<h3>Specialization</h3>
+<p>Football Coaching & Kids Development</p>
+</div>
+</div>
+<a href="#home" class="btn btn-primary">Back To Portfolio</a>
+</div>
+</section>
+
+<footer>
+<div class="container"><strong>YUSIF MOKHTAR</strong> — Football Coach · Physical Education Specialist<br>© <span id="year"></span> All Rights Reserved.</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+<span class="lightbox-close" id="lightboxClose">&times;</span>
+<div id="lightboxContent"></div>
 </div>
 
-<h2 class="section-title">
-Kids Arena Football Academy
-</h2>
+<script>
+const menu=document.getElementById('menu');
+const navLinks=document.getElementById('navLinks');
+if(menu) menu.addEventListener('click',()=>navLinks.classList.toggle('active'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('active')));
+document.getElementById('year').textContent=new Date().getFullYear();
 
-<p class="section-description">
-A football development project focused on young children in New Damietta, combining structured football training with a positive and enjoyable environment.
-</p>
+const mediaGrid=document.getElementById('mediaGrid');
+const mediaEmpty=document.getElementById('mediaEmpty');
+let currentFilter='all';
 
+const mediaItems=[
+  {
+    type:'video',
+    file:'media/lv_0_20260829085024.mp4',
+    title:'Football Training Video',
+    description:'Football coaching & development activity'
+  },
+  {
+    type:'photo',
+    file:'media/FB_IMG_1786028679163.jpg',
+    title:'Football Training',
+    description:'Football coaching & youth development'
+  },
+  {
+    type:'photo',
+    file:'media/FB_IMG_1760876986481.jpg',
+    title:'Training Session',
+    description:'Football training activity'
+  },
+  {
+    type:'photo',
+    file:'media/FB_IMG_1760975450619.jpg',
+    title:'Football Activity',
+    description:'Youth football development'
+  },
+  {
+    type:'photo',
+    file:'media/2024-06-05-13-06-10-072.jpg',
+    title:'Football Coaching',
+    description:'Training session'
+  },
+  {
+    type:'photo',
+    file:'media/FB_IMG_1721270671262.jpg',
+    title:'Football Development',
+    description:'Football coaching & activities'
+  }
+];
 
-<div class="kids-grid">
+function escapeHtml(value=''){
+  return String(value).replace(/[&<>'"]/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'
+  }[c]));
+}
 
-<div>
+function renderMedia(){
+  const items=mediaItems.filter(item=>currentFilter==='all'||item.type===currentFilter);
+  mediaGrid.innerHTML='';
 
-<p style="color:#b9cbd9;margin-top:25px;">
-The project focuses on helping young players build football fundamentals while developing coord
+  if(!items.length){
+    mediaEmpty.style.display='block';
+    return;
+  }
+
+  mediaEmpty.style.display='none';
+
+  items.forEach(item=>{
+    const card=document.createElement('article');
+    card.className='media-card';
+
+    if(item.type==='photo'){
+      card.innerHTML=`
+        <img src="${item.file}" alt="${escapeHtml(item.title)}" loading="lazy">
+        <div class="media-info">
+          <h3>${escapeHtml(item.title)}</h3>
+          <p>${escapeHtml(item.description)}</p>
+        </div>`;
+      card.addEventListener('click',()=>openLightbox('photo',item.file,item.title));
+    }else{
+      card.innerHTML=`
+        <video src="${item.file}" muted preload="metadata" playsinline></video>
+        <div class="media-info">
+          <h3>${escapeHtml(item.title)}</h3>
+          <p>${escapeHtml(item.description)}</p>
+        </div>`;
+      card.addEventListener('click',()=>openLightbox('video',item.file,item.title));
+    }
+
+    mediaGrid.appendChild(card);
+  });
+}
+
+document.querySelectorAll('.media-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.media-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter=btn.dataset.filter;
+    renderMedia();
+  });
+});
+
+function openLightbox(type,url,title){
+  const lb=document.getElementById('lightbox');
+  const c=document.getElementById('lightboxContent');
+
+  c.innerHTML=type==='photo'
+    ? `<img src="${url}" alt="${escapeHtml(title)}">`
+    : `<video src="${url}" controls autoplay playsinline></video>`;
+
+  lb.classList.add('active');
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+  document.getElementById('lightboxContent').innerHTML='';
+}
+
+document.getElementById('lightboxClose').addEventListener('click',closeLightbox);
+document.getElementById('lightbox').addEventListener('click',e=>{
+  if(e.target.id==='lightbox') closeLightbox();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeLightbox();
+});
+
+renderMedia();
+</script>
+</body>
+</html>
+dEventListener('click',()=>{
+    document.querySelectorAll('.media-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter=btn.dataset.filter;
+    renderMedia();
+  });
+});
+
+function openLightbox(type,url,title){
+  const lb=document.getElementById('lightbox');
+  const c=document.getElementById('lightboxContent');
+
+  c.innerHTML=type==='photo'
+    ? `<img src="${url}" alt="${escapeHtml(title)}">`
+    : `<video src="${url}" controls autoplay playsinline></video>`;
+
+  lb.classList.add('active');
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+  document.getElementById('lightboxContent').innerHTML='';
+}
+
+document.getElementById('lightbox
